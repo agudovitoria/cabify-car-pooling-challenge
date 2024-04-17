@@ -1,52 +1,35 @@
 import { CarRepository } from '../../domain/CarRepository';
-import { Car } from '../../domain/Car';
-import { CarNotFoundException } from '../../domain/errors/CarNotFoundException';
 import { Injectable } from '@nestjs/common';
-import { Logger } from '../../../shared/Logger';
-
-/**
- * This is a simulated "in memory database"
- * This let me avoid to use any kind of Relational or documental database like SQLite
- */
-const cars: Map<string, Car> = new Map();
+import { Logger } from '../../../shared/application/Logger';
+import { InMemoryDBService } from '@nestjs-addons/in-memory-db';
+import { CarEntity } from '../../domain/CarEntity';
 
 @Injectable()
 export class InMemoryCarRepository implements CarRepository {
   private readonly logger = new Logger(InMemoryCarRepository.name);
 
+  constructor(
+    private readonly carEntityInMemoryDBService: InMemoryDBService<CarEntity>,
+  ) {}
+
   delete(id: string): void {
-    if (!cars.has(id)) {
-      throw new CarNotFoundException(id);
-    }
-
-    cars.delete(id);
+    this.carEntityInMemoryDBService.delete(id);
   }
 
-  find(): Car[] {
-    return Array.from(cars.values());
+  find(): CarEntity[] {
+    return this.carEntityInMemoryDBService.getAll();
   }
 
-  findById(id: string): Car | null {
-    if (!cars.has(id)) {
-      return null;
-    }
-
-    return cars.get(id);
+  findById(id: string): CarEntity | null {
+    return this.carEntityInMemoryDBService.get(id);
   }
 
-  save(car: Car): void {
-    this.logger.debug(`InMemoryCarRepository for ${JSON.stringify(car)}`);
-    cars.set(car.getId(), car);
+  save(carEntity: CarEntity): void {
+    this.carEntityInMemoryDBService.create(carEntity);
     this.logger.debug({ cars: this.find() });
   }
 
-  update(car: Car): void {
-    const carId = car.getId();
-
-    if (!cars.has(carId)) {
-      throw new CarNotFoundException(carId);
-    }
-
-    cars.set(carId, car);
+  update(carEntity: CarEntity): void {
+    this.carEntityInMemoryDBService.update(carEntity);
   }
 }

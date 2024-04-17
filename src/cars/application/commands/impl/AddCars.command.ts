@@ -1,5 +1,5 @@
-import { CarDto } from '../../dto/CarDto';
+import { Car } from '../../../domain/Car';
 
 export class AddCarsCommand {
-  constructor(public readonly carDtos: CarDto[]) {}
+  constructor(public readonly cars: Car[]) {}
 }

@@ -7,4 +7,8 @@ export class Car {
   getId(): string {
     return this.id;
   }
+
+  getNumberOfSeats(): number {
+    return this.numberOfSeats;
+  }
 }

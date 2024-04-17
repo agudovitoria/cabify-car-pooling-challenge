@@ -1,10 +1,4 @@
-import { Car } from './Car';
+import { Repository } from '../../shared/domain/Repository';
+import { CarEntity } from './CarEntity';
 
-export interface CarRepository {
-  find(): Car[];
-  findById(id: string): Car | null;
-
-  save(car: Car): void;
-  update(car: Car): void;
-  delete(id: string): void;
-}
+export interface CarRepository extends Repository<CarEntity>{}
