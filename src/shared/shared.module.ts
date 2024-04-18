@@ -1,8 +1,10 @@
 import { Module } from '@nestjs/common';
-import { Logger } from './application/Logger';
+import { CustomConsoleLogger } from './application/CustomConsoleLogger';
+import { CqrsModule } from '@nestjs/cqrs';
 
 @Module({
-  providers: [Logger],
-  exports: [Logger],
+  imports: [CqrsModule],
+  providers: [CustomConsoleLogger],
+  exports: [CqrsModule, CustomConsoleLogger],
 })
 export class SharedModule {}

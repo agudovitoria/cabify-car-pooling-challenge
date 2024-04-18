@@ -1,6 +1,5 @@
+import { Car } from '../../../domain/Car';
+
 export class AddCarCommand {
-  constructor(
-    public readonly carId: string,
-    public readonly numberOfSeats: number,
-  ) {}
+  constructor(public readonly car: Car) {}
 }

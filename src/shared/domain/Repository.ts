@@ -1,5 +1,5 @@
 export interface Repository<T> {
-  find(): T[];
+  find(): Array<T>;
   findById(id: string): T | null;
   save(it: T): void;
   update(it: T): void;

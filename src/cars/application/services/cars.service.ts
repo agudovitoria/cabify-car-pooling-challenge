@@ -8,10 +8,10 @@ import { CarDtoMapper } from '../mappers/CarDtoMapper';
 export class CarsService {
   constructor(
     private readonly commandBus: CommandBus,
-    private readonly carDtoMapper: CarDtoMapper
+    private readonly carDtoMapper: CarDtoMapper,
   ) {}
 
-  async addCars(carDtos: CarDto[]): Promise<void> {
+  async addCars(carDtos: Array<CarDto>): Promise<void> {
     const cars = carDtos.map((carDto: CarDto) => this.carDtoMapper.to(carDto));
     await this.commandBus.execute(new AddCarsCommand(cars));
   }

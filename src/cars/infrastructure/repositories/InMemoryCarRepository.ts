@@ -1,12 +1,12 @@
 import { CarRepository } from '../../domain/CarRepository';
 import { Injectable } from '@nestjs/common';
-import { Logger } from '../../../shared/application/Logger';
+import { CustomConsoleLogger } from '../../../shared/application/CustomConsoleLogger';
 import { InMemoryDBService } from '@nestjs-addons/in-memory-db';
 import { CarEntity } from '../../domain/CarEntity';
 
 @Injectable()
 export class InMemoryCarRepository implements CarRepository {
-  private readonly logger = new Logger(InMemoryCarRepository.name);
+  private readonly logger = new CustomConsoleLogger(InMemoryCarRepository.name);
 
   constructor(
     private readonly carEntityInMemoryDBService: InMemoryDBService<CarEntity>,
@@ -16,7 +16,7 @@ export class InMemoryCarRepository implements CarRepository {
     this.carEntityInMemoryDBService.delete(id);
   }
 
-  find(): CarEntity[] {
+  find(): Array<CarEntity> {
     return this.carEntityInMemoryDBService.getAll();
   }
 
