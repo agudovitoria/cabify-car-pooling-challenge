@@ -1,20 +1,10 @@
 ---
 stages:
-  - build
   - docker
   - acceptance
 
 ## Uncomment the following sections to enable docker, image building and
 ## acceptance
-
-build:
-   stage: build
-   image: docker:latest
-   artifacts:
-     paths:
-       - bin/
-   script:
-     - sudo apt-get update && sudo apt-get install -y python3-pip python3-dev libffi-dev libssl-dev gcc libc6-dev make && sudo rm -rf /var/lib/apt/lists/*
 
 build_image:
    stage: docker
