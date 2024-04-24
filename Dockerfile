@@ -1,12 +1,20 @@
-FROM alpine:latest
+FROM node:lts-alpine
+# |ENV NODE_OPTIONS=--max-old-space-size=1500
+RUN apk update && apk upgrade
 
-# This Dockerfile is optimized for go binaries, change it as much as necessary
-# for your language of choice.
+RUN apk add --update python3 make g++\
+   && rm -rf /var/cache/apk/* \
 
-RUN apk --no-cache add ca-certificates libc6-compat
+WORKDIR /home/node
 
-EXPOSE 9091
+COPY --chown=node:node package.json package-lock.json ./
 
-COPY car-pooling-challenge /
+RUN npm ci
 
-ENTRYPOINT [ "/car-pooling-challenge" ]
+COPY --chown=node:node . ./
+
+RUN npm run build
+
+USER node
+EXPOSE 8080
+CMD ["node", "dist/main.js"]
