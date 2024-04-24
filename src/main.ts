@@ -2,6 +2,7 @@ import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { CustomConsoleLogger } from './shared/application/CustomConsoleLogger';
 import { ValidationPipe } from '@nestjs/common';
+import { HttpExceptionFilter } from './shared/application/http/HttpExceptionFilter';
 
 async function bootstrap() {
   const logger = new CustomConsoleLogger(AppModule.name);
@@ -10,8 +11,12 @@ async function bootstrap() {
   app.useGlobalPipes(
     new ValidationPipe({
       stopAtFirstError: true,
-    }),
+      forbidNonWhitelisted: true,
+      whitelist: true
+    })
   );
+
+  app.useGlobalFilters(new HttpExceptionFilter());
 
   logger.debug(`Starting app on port ${port}`);
 

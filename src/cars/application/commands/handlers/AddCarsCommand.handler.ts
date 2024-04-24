@@ -1,18 +1,18 @@
-import { CommandHandler, EventPublisher, ICommandHandler } from '@nestjs/cqrs';
+import { CommandHandler, ICommandHandler } from '@nestjs/cqrs';
 import { Inject } from '@nestjs/common';
 import { clc } from '@nestjs/common/utils/cli-colors.util';
-import { CarRepository } from '../../../domain/CarRepository';
+import { CarRepository } from '../../../domain/Car.repository';
 import { CustomConsoleLogger } from '../../../../shared/application/CustomConsoleLogger';
-import { InMemoryCarRepository } from '../../../infrastructure/repositories/InMemoryCarRepository';
+import { InMemoryCarRepository } from '../../../infrastructure/repositories/InMemoryCar.repository';
 import { AddCarsCommand } from '../impl/AddCars.command';
-import { CarEntityMapper } from '../../mappers/CarEntityMapper';
+import { CarEntityMapper } from '../../mappers/CarEntity.mapper';
 
 @CommandHandler(AddCarsCommand)
 export class AddCarsCommandHandler implements ICommandHandler<AddCarsCommand> {
   private readonly logger = new CustomConsoleLogger(AddCarsCommandHandler.name);
   constructor(
     private readonly carEntityMapper: CarEntityMapper,
-    @Inject(InMemoryCarRepository) private readonly repository: CarRepository,
+    @Inject(InMemoryCarRepository) private readonly repository: CarRepository
   ) {}
 
   async execute(command: AddCarsCommand) {

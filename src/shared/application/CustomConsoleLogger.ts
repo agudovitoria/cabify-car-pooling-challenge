@@ -5,7 +5,7 @@ const developmentLogLevels = [
   ...defaultLogLevels,
   'log' as LogLevel,
   'debug' as LogLevel,
-  'verbose' as LogLevel,
+  'verbose' as LogLevel
 ];
 
 export class CustomConsoleLogger extends ConsoleLogger {

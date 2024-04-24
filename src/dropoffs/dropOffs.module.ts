@@ -1,23 +1,24 @@
 import { Module } from '@nestjs/common';
-import { DropOffsService } from './application/services/dropOffs.service';
 import { DropOffsController } from './application/http/dropOffs.controller';
 import { SharedModule } from '../shared/shared.module';
-import { InMemoryDropOffRepository } from './infrastructure/repositories/InMemoryDropOffRepository';
-import { AddDropOffsCommandHandler } from './application/commands/handlers/AddDropOffsCommand.handler';
-import { DropOffEntityMapper } from './application/mappers/DropOffEntityMapper';
-import { DropOffDtoMapper } from './application/mappers/DropOffDtoMapper';
+import { InMemoryDropOffRepository } from './infrastructure/repositories/InMemoryDropOff.repository';
+import { AddDropOffCommandHandler } from './application/commands/handlers/AddDropOffCommand.handler';
+import { DropOffEntityMapper } from './application/mappers/DropOffEntity.mapper';
+import { DropOffDtoMapper } from './application/mappers/DropOffDto.mapper';
 import { InMemoryDBService } from '@nestjs-addons/in-memory-db';
+import { DropOffsService } from './application/services/DropOffs.service';
+import { HttpModule } from '@nestjs/axios';
 
 @Module({
-  imports: [SharedModule],
+  imports: [SharedModule, HttpModule],
   controllers: [DropOffsController],
   providers: [
     InMemoryDBService,
     DropOffsService,
-    AddDropOffsCommandHandler,
+    AddDropOffCommandHandler,
     InMemoryDropOffRepository,
     DropOffEntityMapper,
-    DropOffDtoMapper,
-  ],
+    DropOffDtoMapper
+  ]
 })
 export class DropOffsModule {}

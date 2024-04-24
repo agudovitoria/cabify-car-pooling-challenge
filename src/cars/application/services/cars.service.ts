@@ -2,13 +2,13 @@ import { Injectable } from '@nestjs/common';
 import { CommandBus } from '@nestjs/cqrs';
 import { CarDto } from '../dto/CarDto';
 import { AddCarsCommand } from '../commands/impl/AddCars.command';
-import { CarDtoMapper } from '../mappers/CarDtoMapper';
+import { CarDtoMapper } from '../mappers/CarDto.mapper';
 
 @Injectable()
 export class CarsService {
   constructor(
     private readonly commandBus: CommandBus,
-    private readonly carDtoMapper: CarDtoMapper,
+    private readonly carDtoMapper: CarDtoMapper
   ) {}
 
   async addCars(carDtos: Array<CarDto>): Promise<void> {

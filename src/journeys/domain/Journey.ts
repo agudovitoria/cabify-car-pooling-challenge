@@ -1,11 +1,11 @@
-export class Journey {
-  constructor(
-    private readonly id: number,
-    private readonly people: number,
-  ) {}
+import { BaseEntity } from '../../shared/domain/BaseEntity';
 
-  getId(): number {
-    return this.id;
+export class Journey extends BaseEntity {
+  constructor(
+    protected readonly id: number,
+    private readonly people: number
+  ) {
+    super(id);
   }
 
   getPeople(): number {

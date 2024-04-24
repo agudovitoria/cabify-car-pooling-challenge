@@ -1,14 +1,7 @@
 export class DropOff {
-  constructor(
-    private readonly id: string,
-    private readonly numberOfSeats: number,
-  ) {}
+  constructor(private readonly id: number) {}
 
-  getId(): string {
+  getId(): number {
     return this.id;
-  }
-
-  getNumberOfSeats(): number {
-    return this.numberOfSeats;
   }
 }

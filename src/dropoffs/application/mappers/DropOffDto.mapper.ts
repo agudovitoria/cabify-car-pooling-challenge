@@ -6,13 +6,12 @@ import { Injectable } from '@nestjs/common';
 @Injectable()
 export class DropOffDtoMapper implements Mapper<DropOffDto, DropOff> {
   to(dropOffDto: DropOffDto): DropOff {
-    return new DropOff(dropOffDto.id, dropOffDto.seats);
+    return new DropOff(dropOffDto.id);
   }
 
   from(dropOff: DropOff): DropOffDto {
     return {
-      id: dropOff.getId(),
-      seats: dropOff.getNumberOfSeats(),
+      id: dropOff.getId()
     };
   }
 }

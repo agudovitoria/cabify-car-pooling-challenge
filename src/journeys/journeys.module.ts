@@ -2,11 +2,13 @@ import { Module } from '@nestjs/common';
 import { JourneysService } from './application/services/journeys.service';
 import { JourneysController } from './application/http/journeys.controller';
 import { SharedModule } from '../shared/shared.module';
-import { InMemoryJourneyRepository } from './infrastructure/repositories/InMemoryJourneyRepository';
-import { AddJourneyCommandHandler } from './application/commands/handlers/AddJourneyCommandHandler';
-import { JourneyEntityMapper } from './application/mappers/JourneyEntityMapper';
-import { JourneyDtoMapper } from './application/mappers/JourneyDtoMapper';
+import { InMemoryJourneyRepository } from './infrastructure/repositories/InMemoryJourney.repository';
+import { AddJourneyCommandHandler } from './application/commands/handlers/AddJourneyCommand.handler';
+import { JourneyEntityMapper } from './application/mappers/JourneyEntity.mapper';
+import { JourneyDtoMapper } from './application/mappers/JourneyDto.mapper';
 import { InMemoryDBService } from '@nestjs-addons/in-memory-db';
+import { ExistsGroupQueryHandler } from './application/queries/handlers/ExistsGroupQuery.handler';
+import { RemoveJourneyCommandHandler } from './application/commands/handlers/RemoveJourneyCommand.handler';
 
 @Module({
   imports: [SharedModule],
@@ -15,9 +17,11 @@ import { InMemoryDBService } from '@nestjs-addons/in-memory-db';
     InMemoryDBService,
     JourneysService,
     AddJourneyCommandHandler,
+    RemoveJourneyCommandHandler,
+    ExistsGroupQueryHandler,
     InMemoryJourneyRepository,
     JourneyEntityMapper,
-    JourneyDtoMapper,
-  ],
+    JourneyDtoMapper
+  ]
 })
 export class JourneysModule {}

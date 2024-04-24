@@ -5,6 +5,6 @@ import { JourneysModule } from './journeys/journeys.module';
 import { DropOffsModule } from './dropoffs/dropOffs.module';
 
 @Module({
-  imports: [ConfigModule.forRoot(), CarsModule, JourneysModule, DropOffsModule],
+  imports: [ConfigModule.forRoot(), CarsModule, JourneysModule, DropOffsModule]
 })
 export class AppModule {}
