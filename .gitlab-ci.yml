@@ -9,7 +9,7 @@ stages:
 
 build:
    stage: build
-   image: Node 18
+   image: docker:latest
    artifacts:
      paths:
        - bin/
