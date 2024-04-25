@@ -9,7 +9,7 @@ stages:
 
 build:
   image: node:latest
-  stage: test
+  stage: build
   before_script:
     - 'yarn global add jest'
     - 'yarn add --dev jest-junit'
