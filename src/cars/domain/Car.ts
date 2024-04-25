@@ -1,10 +1,10 @@
 export class Car {
   constructor(
-    private readonly id: string,
-    private readonly numberOfSeats: number,
+    private readonly id: number,
+    private readonly numberOfSeats: number
   ) {}
 
-  getId(): string {
+  getId(): number {
     return this.id;
   }
 

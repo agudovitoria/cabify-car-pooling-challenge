@@ -12,7 +12,7 @@ export class CarDtoMapper implements Mapper<CarDto, Car> {
   from(car: Car): CarDto {
     return {
       id: car.getId(),
-      seats: car.getNumberOfSeats(),
+      seats: car.getNumberOfSeats()
     };
   }
 }

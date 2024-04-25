@@ -6,10 +6,10 @@ import { Injectable } from '@nestjs/common';
 @Injectable()
 export class CarEntityMapper implements Mapper<CarEntity, Car> {
   to(carEntity: CarEntity): Car {
-    return new Car(carEntity.id, carEntity.numberOfSeats);
+    return new Car(parseInt(carEntity.id, 10), carEntity.numberOfSeats);
   }
 
   from(car: Car): CarEntity {
-    return new CarEntity(car.getId(), car.getNumberOfSeats());
+    return new CarEntity(car.getId().toString(10), car.getNumberOfSeats());
   }
 }
