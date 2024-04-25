@@ -4,9 +4,6 @@ stages:
   - docker
   - acceptance
 
-## Uncomment the following sections to enable docker, image building and
-## acceptance
-
 build:
   image: node:latest
   stage: build
@@ -31,8 +28,6 @@ build_image:
     - docker build . -t ${CI_REGISTRY_IMAGE}:latest
     - docker push ${CI_REGISTRY_IMAGE}:latest
 
-## Uncomment the acceptance step and do not remove or edit, this step is
-## required for us to accept your submission!
 acceptance:
   image: cabify/challenge:latest
   stage: acceptance
