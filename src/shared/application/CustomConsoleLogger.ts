@@ -11,7 +11,7 @@ const developmentLogLevels = [
 export class CustomConsoleLogger extends ConsoleLogger {
   constructor(context: string) {
     super(context);
-    const isDev = process.env.NODE_ENV === 'development';
+    const isDev = ['development', 'test'].includes(process.env.NODE_ENV);
     this.setLogLevels(isDev ? developmentLogLevels : defaultLogLevels);
   }
 }

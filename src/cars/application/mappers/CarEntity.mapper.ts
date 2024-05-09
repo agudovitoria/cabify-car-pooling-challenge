@@ -1,5 +1,5 @@
 import { Car } from '../../domain/Car';
-import { CarEntity } from '../../domain/CarEntity';
+import { CarEntity } from '../../domain/Car.entity';
 import { Mapper } from '../../../shared/domain/Mapper';
 import { Injectable } from '@nestjs/common';
 

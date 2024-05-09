@@ -2,7 +2,7 @@ import { CarRepository } from '../../domain/Car.repository';
 import { Injectable } from '@nestjs/common';
 import { CustomConsoleLogger } from '../../../shared/application/CustomConsoleLogger';
 import { InMemoryDBService } from '@nestjs-addons/in-memory-db';
-import { CarEntity } from '../../domain/CarEntity';
+import { CarEntity } from '../../domain/Car.entity';
 
 @Injectable()
 export class InMemoryCarRepository implements Partial<CarRepository> {
