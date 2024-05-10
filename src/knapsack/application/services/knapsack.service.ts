@@ -9,11 +9,6 @@ export type Item = {
 
 export type Items = Array<Item>;
 
-export interface KnapSack {
-  items: Candidates;
-  total: number;
-}
-
 @Injectable()
 export class KnapSackService {
   private readonly logger = new CustomConsoleLogger(KnapSackService.name);
@@ -32,31 +27,35 @@ export class KnapSackService {
       return;
     }
 
+    const substractWeightAndTryAgainForSameTarget = (candidate: Item) => {
+      this.result.push(candidate);
+
+      const currentCandidateWeight = candidate.weight;
+      const updatedCapacity = capacity - currentCandidateWeight;
+      const updatedTarget = updatedCapacity;
+
+      return this.calculate(
+        this.filterValidCandidatesByCapacity(candidates, updatedCapacity),
+        updatedCapacity,
+        updatedTarget
+      );
+    };
+
+    const tryAgainWithLowerWeightCandidates = () => {
+      const updatedTarget = weightTarget - 1;
+
+      return this.calculate(
+        this.filterValidCandidatesByCapacity(candidates, capacity),
+        capacity,
+        updatedTarget
+      );
+    };
+
     return candidates
       .getOptionalFirstCandidateForWeight(weightTarget)
       .ifPresentOrElse(
-        (candidate: Item) => {
-          this.result.push(candidate);
-
-          const currentCandidateWeight = candidate.weight;
-          const updatedCapacity = capacity - currentCandidateWeight;
-          const updatedTarget = updatedCapacity;
-
-          return this.calculate(
-            this.filterValidCandidatesByCapacity(candidates, updatedCapacity),
-            updatedCapacity,
-            updatedTarget
-          );
-        },
-        () => {
-          const updatedTarget = weightTarget - 1;
-
-          return this.calculate(
-            this.filterValidCandidatesByCapacity(candidates, capacity),
-            capacity,
-            updatedTarget
-          );
-        }
+        substractWeightAndTryAgainForSameTarget,
+        tryAgainWithLowerWeightCandidates
       );
   }
 
@@ -76,15 +75,15 @@ export class KnapSackService {
     candidates: Candidates,
     capacity: number
   ): Candidates {
-    const hasLowerOrEqualCapacityAndItems = ([
+    const hasLowerOrEqualCapacityCandidates = ([
       candidateCapacity,
       candidateItems
     ]) => candidateItems.length > 0 && candidateCapacity <= capacity;
 
-    const candidatesWithGreaterOrEqualCapacityAndItems = Array.from(
-      candidates
-    ).filter(hasLowerOrEqualCapacityAndItems);
+    const candidatesWithGreaterOrEqualCapacity = Array.from(candidates).filter(
+      hasLowerOrEqualCapacityCandidates
+    );
 
-    return Candidates.from(candidatesWithGreaterOrEqualCapacityAndItems);
+    return Candidates.from(candidatesWithGreaterOrEqualCapacity);
   }
 }

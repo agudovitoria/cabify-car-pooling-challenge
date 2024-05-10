@@ -9,6 +9,9 @@ import { JourneyDtoMapper } from './application/mappers/JourneyDto.mapper';
 import { InMemoryDBService } from '@nestjs-addons/in-memory-db';
 import { ExistsGroupQueryHandler } from './application/queries/handlers/ExistsGroupQuery.handler';
 import { RemoveJourneyCommandHandler } from './application/commands/handlers/RemoveJourneyCommand.handler';
+import {
+  AssignNextPendingJourneyCommandHandler
+} from './application/commands/handlers/AssignNextPendingJourneyCommand.handler';
 
 @Module({
   imports: [SharedModule],
@@ -18,6 +21,7 @@ import { RemoveJourneyCommandHandler } from './application/commands/handlers/Rem
     JourneysService,
     AddJourneyCommandHandler,
     RemoveJourneyCommandHandler,
+    AssignNextPendingJourneyCommandHandler,
     ExistsGroupQueryHandler,
     InMemoryJourneyRepository,
     JourneyEntityMapper,
